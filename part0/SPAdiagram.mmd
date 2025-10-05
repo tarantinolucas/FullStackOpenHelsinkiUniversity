@@ -1,0 +1,23 @@
+sequenceDiagram
+    participant browser
+    participant server
+    browser->>server: GET https://studies.cs.helsinki.fi/exampleapp/spa
+    activate server
+    server-->>browser: Server response with HTML
+    deactivate server
+    Note right of browser: At this point, the HTML still doesn't contain the notes, only the basic structure.
+    browser->>server: GET https://studies.cs.helsinki.fi/exampleapp/main.css
+    activate server
+    server-->>browser: Response with CSS file
+    deactivate server
+    browser->>server: GET https://studies.cs.helsinki.fi/exampleapp/spa.js
+    activate server
+    server-->>browser: Response with Javascript file
+    Note right of browser: At this point, the JavaScript file requests the JSON file with the note data from the server.
+    deactivate server
+    browser->>server: GET https://studies.cs.helsinki.fi/exampleapp/data.json
+    activate server
+    server-->>browser: [{content: "im genius", date: "2025-10-04T20:00:24.286Z"},…]
+    deactivate server
+    Note right of browser: Once JavaScript receives the data, it iterates through it and dynamically generates the HTML code to display
+    Note right of browser:  all the notes in the list, and manipulates the DOM to show the new HTML in the browser.
