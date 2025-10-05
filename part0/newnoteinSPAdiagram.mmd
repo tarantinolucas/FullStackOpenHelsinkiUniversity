@@ -1,0 +1,13 @@
+sequenceDiagram
+    participant browser
+    participant server
+
+    Note right of browser: When the user writes a note and presses the save button, several things happen.
+    Note right of browser: The page's JavaScript springs into action due to its onsubmit event listener.
+    Note right of browser: It prevents the page from reloading, as it does by default, and packages the entered text into a format that the server understands, in this case JSON.
+    browser->>server: POST https://studies.cs.helsinki.fi/exampleapp/new_note_spa
+    activate server
+    server-->>browser: The server responds with an HTTP success code 301.
+    deactivate server
+    Note right of browser: After JavaScript gets the server response, it dynamically inserts a new list item into the HTML and manipulates the DOM to display the updated HTML in the browser.
+   
